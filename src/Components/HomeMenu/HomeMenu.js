@@ -14,7 +14,7 @@ function HomeMenu() {
         component={Home}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="Home" size={size} color={color} />
+            <FontAwesome name="home" size={size} color={color} />
           ),
         }}
       />
@@ -23,7 +23,7 @@ function HomeMenu() {
         component={User}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="User" size={size} color={color} />
+            <FontAwesome name="user" size={size} color={color} />
           ),
         }}
       />

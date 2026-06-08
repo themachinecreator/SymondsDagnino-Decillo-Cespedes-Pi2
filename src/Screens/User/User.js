@@ -1,13 +1,34 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native';
-import { auth } from "../../Firebase/Config";
+import { auth, db } from "../../Firebase/Config";
+import { useEffect } from 'react';
 
 function User({ navigation }) {
+  useEffect(function(){
+    db.collection("User").where("Loguser", "==", auth.currentUser.email).onSnapshot(
+      docs=>{
+        let info = "";
+        docs.forEach(doc=>{
+          posts.push({
+            id: doc.id,
+            data: doc.data()
+          })
+          this.setState({
+            info:email,
+            loanding: false
+          })
+        })
+
+
+      }
+    )
+  })
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Perfil</Text>
-      <Text style={styles.subtitle}>Esta es la pantalla del perfil del usuario.</Text>
+      <Text style={styles.title}>email:{info}</Text>
+      
       <Text style={styles.subtitle}>Navegación cruzada a Login:</Text>
-
       <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}>
         <Text style={styles.buttonText}>Desloguearse</Text>
       </Pressable>
@@ -29,9 +50,9 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 10,
     color: '#999',
-    marginBottom: 8,
+    marginBottom: 6,
     textAlign: 'center',
   },
   button: {

@@ -15,7 +15,6 @@ function Register({ navigation }) {
       db.collection("users").add({
         email: auth.currentUser.email,
         username: username,
-        Password: password,
         createAt: Date.now(),
       })
       .then(response =>{setRegister(true) 
