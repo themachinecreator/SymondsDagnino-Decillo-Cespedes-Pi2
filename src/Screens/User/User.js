@@ -1,40 +1,24 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native';
-import { auth, db } from "../../Firebase/Config";
-import { useEffect } from 'react';
+import { auth } from "../../Firebase/Config";
 
 function User({ navigation }) {
-  useEffect(function(){
-    db.collection("User").where("Loguser", "==", auth.currentUser.email).onSnapshot(
-      docs=>{
-        let info = "";
-        docs.forEach(doc=>{
-          posts.push({
-            id: doc.id,
-            data: doc.data()
-          })
-          this.setState({
-            info:email,
-            loanding: false
-          })
-        })
+  const user = auth.currentUser;
 
-
-      }
-    )
-  })
-  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Perfil</Text>
-      <Text style={styles.title}>email:{info}</Text>
-      
-      <Text style={styles.subtitle}>Navegación cruzada a Login:</Text>
-      <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}>
+      <Text style={styles.subtitle}>Email: {user.email}</Text>
+
+      <Pressable style={styles.button} onPress={() => {
+        auth.signOut();
+        navigation.navigate('Login');
+      }}>
         <Text style={styles.buttonText}>Desloguearse</Text>
       </Pressable>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -50,10 +34,9 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   subtitle: {
-    fontSize: 10,
-    color: '#999',
-    marginBottom: 6,
-    textAlign: 'center',
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 8,
   },
   button: {
     width: '100%',
@@ -70,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default User
+export default User;
