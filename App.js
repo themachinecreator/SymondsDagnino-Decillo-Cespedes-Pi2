@@ -1,9 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from './src/screens/Login/Login';
+import Login from './src/Screens/Login/Login';
 import Register from './src/Screens/Register/Register';
-import HomeMenu from './src/Components/Homemenu/HomeMenu';
 
+import HomeMenu from './src/Components/HomeMenu/HomeMenu';
 const Stack = createNativeStackNavigator();
 
 function App() {

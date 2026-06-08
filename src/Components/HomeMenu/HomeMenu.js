@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome } from '@expo/vector-icons';
-import Home from '../../screens/Home/Home';
+import Home from '../../Screens/Home/Home';
 import User from '../../Screens/User/User';
 
 
@@ -14,7 +14,7 @@ function HomeMenu() {
         component={Home}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="home" size={size} color={color} />
+            <FontAwesome name="Home" size={size} color={color} />
           ),
         }}
       />
@@ -23,11 +23,13 @@ function HomeMenu() {
         component={User}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="user" size={size} color={color} />
+            <FontAwesome name="User" size={size} color={color} />
           ),
         }}
       />
     </Tab.Navigator>
   );
 }
+
+
 export default HomeMenu

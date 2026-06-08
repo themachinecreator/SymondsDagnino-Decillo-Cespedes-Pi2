@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native';
 import {db, auth} from "../../Firebase/Config";
 
@@ -15,6 +15,14 @@ function Login({ navigation }) {
      })
      .catch(error => {setLoginError("credenciales invalidas.")})
     }
+    useEffect(()=>{auth.onAuthStateChanged(
+      user => { 
+        if(user){
+          Props.navigation.navigate("HomeMenu")
+        }
+      }
+    )})
+
 
   return (
     <View style={styles.container}>
@@ -47,4 +55,52 @@ function Login({ navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    padding: 24,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 32,
+  },
+  input: {
+    width: '100%',
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 10,
+    padding: 14,
+    marginBottom: 16,
+    fontSize: 15,
+    color: '#333',
+  },
+  button: {
+    width: '100%',
+    backgroundColor: '#4A90E2',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  link: {
+    marginTop: 20,
+  },
+  linkText: {
+    color: '#4A90E2',
+    fontSize: 14,
+  },
+});
+  
 export default Login
