@@ -1,16 +1,21 @@
-import {Usestate} from 'react';
-import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native';
-import firebase from 'firebase';
-import { ActivityIndicator } from 'react-native-web';
+import React from 'react';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 
-function Home({navigation}) {
-
+export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Pantalla de inicio (Home)</Text>
+      <Text style={styles.text}>Pantalla de inicio</Text>
+
+      <Pressable
+        style={styles.button}
+        onPress={() => navigation.navigate('NuevoPost')}
+      >
+        <Text style={styles.buttonText}>Ir a Nuevo Post</Text>
+      </Pressable>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -23,6 +28,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: '#333',
+    marginBottom: 16,
   },
-});   
-export default Home
+  button: {
+    backgroundColor: '#7C3AED',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: '#F0EEFF',
+    fontWeight: '700',
+  },
+});

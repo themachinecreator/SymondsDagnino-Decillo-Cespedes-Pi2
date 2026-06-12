@@ -27,6 +27,7 @@ function HomeMenu() {
           ),
         }}
       />
+
     </Tab.Navigator>
   );
 }
