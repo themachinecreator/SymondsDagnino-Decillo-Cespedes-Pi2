@@ -1,14 +1,54 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, FlatList } from 'react-native';
+import { useState, useEffect } from 'react';
+import { db } from '../../Firebase/Config';
+
+
 
 export default function Home({ navigation }) {
+    
+  const [posteos, setPosteos] = useState([]);
+
+useEffect(() => {
+
+    db.collection("posts")
+      .orderBy("createdAt", "desc")
+      .onSnapshot(docs => {
+        let todosLosPosteos = [];
+
+        docs.forEach(doc => {
+          todosLosPosteos.push({
+            id: doc.id,
+            data: doc.data()
+          });
+        });
+
+        setPosteos(todosLosPosteos);
+    });
+
+}, []);
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Pantalla de inicio</Text>
 
   
         <Text style={styles.buttonText}>Ir a Nuevo Post</Text>
+
+      <Text style={styles.posteos}>Posteos</Text>
+            <FlatList
+              data={posteos}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (
+                <View style={styles.card}>
+                  <Text style={styles.textocard}>{item.data.descripcion}</Text>
+                </View>
+              )}
+            />
     </View>
+    
+    
   );
 }
 
@@ -35,5 +75,23 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#F0EEFF',
     fontWeight: '700',
+  },
+    posteos: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginTop: 24,
+    marginBottom: 12,
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 14,
+    marginBottom: 10,
+    elevation: 2,
+  },
+  textocard: {
+    color: '#444',
+    fontSize: 14,
   },
 });
