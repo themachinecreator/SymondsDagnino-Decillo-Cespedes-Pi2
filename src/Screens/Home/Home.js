@@ -6,12 +6,8 @@ export default function Home({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.text}>Pantalla de inicio</Text>
 
-      <Pressable
-        style={styles.button}
-        onPress={() => navigation.navigate('NuevoPost')}
-      >
+  
         <Text style={styles.buttonText}>Ir a Nuevo Post</Text>
-      </Pressable>
     </View>
   );
 }

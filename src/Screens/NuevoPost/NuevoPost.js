@@ -1,45 +1,84 @@
 import {db, auth} from "../../Firebase/Config";
-import { useState, useEffect } from 'react';
-import { Text, View, Pressable, TextInput } from "react-native";
+import { useState} from 'react';
+import { Text, View, Pressable, TextInput, StyleSheet } from "react-native";
 
-function Posteos() {
+function NuevoPost({navigation}) {
 
-    function Posteos() {
-    const [posteos, setPosteos] = useState([]); 
-    const [loading, setLoading] = useState(true);
+    const [descripcion, setDescripcion] = useState("");
 
-    db.collection("posts").add({
-        descripcion: setPosteos,
+    function onSubmit() {
+        db.collection("posts").add({
+        descripcion: descripcion,
         owner: auth.currentUser.email,
-        setPosteos: "descripcion del post",
         createdAt: Date.now(),
         likes: []
     })
 
         .then(() => {
             console.log("Post creado");
-            setLoading("");
-            props.navigation.navigate("HomeMenu");
+            navigation.navigate("Home");
         })
-        .catch((error) => console.error("Error al crear el post:"));
-    }
-  return (
+        .catch((error) => console.error("Error al crear el post"));
+}
+
+return (
     <View style={styles.container}>
       <Text style={styles.subtite}> Nuevo Posteo </Text>
 
       <TextInput
         placeholder="Añadi tu posteo"
-        value={setPosteos}
-        onChangeText={text => setLoading(text)}
+        value={descripcion}
+        onChangeText={text => setDescripcion(text)}
         style={styles.input}
       />
 
-      <Pressable onPress={()=>crearPosteo()} style={styles.submit}>
+      <Pressable onPress={()=>onSubmit()} style={styles.button}>
         <Text style={styles.textoSubmit}>Subir</Text>
       </Pressable>
 
     </View>
-  )
+  );
 }
 
-export default Posteos;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    padding: 24,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 32,
+  },
+  input: {
+    width: '100%',
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 10,
+    padding: 14,
+    marginBottom: 16,
+    fontSize: 15,
+    color: '#333',
+  },
+  button: {
+    width: '100%',
+    backgroundColor: '#4A90E2',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
+
+export default NuevoPost;
