@@ -1,23 +1,66 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native';
-import { auth } from "../../Firebase/Config";
+import { auth, db } from "../../Firebase/Config";
+import { FlatList } from 'react-native-web';
+import { useState, useEffect } from 'react';
 
 function User({ navigation }) {
   const user = auth.currentUser;
+  const [username, setUsername] = useState("");
+  const [posteos, setPosteos] = useState([]);
+
+
+  useEffect(() => {
+    db.collection("users")
+      .where("email", "==", user.email)
+
+      .onSnapshot(docs => { docs.forEach(doc => {
+          setUsername(doc.data().username);
+        });
+      });
+
+    
+    db.collection("posts")
+      .where("owner", "==", user.email)
+      .onSnapshot(docs => {
+        let misPosteos = [];
+        docs.forEach(doc => {
+          misPosteos.push({ id: doc.id, data: doc.data() });
+        });
+        setPosteos(misPosteos);
+      });
+  }, []);
+
+  function logout() {
+    auth.signOut()
+      .then(() => {
+        navigation.navigate('Login');
+      });
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Perfil</Text>
+      <Text style={styles.subtitle}>Nombre de usuario: {username}</Text>
       <Text style={styles.subtitle}>Email: {user.email}</Text>
 
-      <Pressable style={styles.button} onPress={() => {
-        auth.signOut();
-        navigation.navigate('Login');
-      }}>
+      <Text style={styles.posteos}>Mis posteos</Text>
+      <FlatList
+        data={posteos}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.card}>
+            <Text style={styles.textocard}>{item.data.descripcion}</Text>
+          </View>
+        )}
+      />
+
+      <Pressable style={styles.button} onPress={logout}>
         <Text style={styles.buttonText}>Desloguearse</Text>
       </Pressable>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -50,6 +93,24 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  posteos: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginTop: 24,
+    marginBottom: 12,
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 14,
+    marginBottom: 10,
+    elevation: 2,
+  },
+  textocard: {
+    color: '#444',
+    fontSize: 14,
   },
 });
 
