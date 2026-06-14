@@ -46,7 +46,9 @@ function disLike(idPost) {
         .update({
             likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
         })
-    }
+}
+
+
 
   return (
     <View style={styles.container}>
@@ -70,6 +72,10 @@ function disLike(idPost) {
 
                   <Pressable onPress={() => disLike(item.id)}>
                      <Text>No me gusta</Text>
+                  </Pressable>
+
+                  <Pressable onPress={() => props.navigation.navigate('Comentarios', { id: item.id })}>
+                      <Text>Comentar</Text>
                   </Pressable>
 
                 </View>
