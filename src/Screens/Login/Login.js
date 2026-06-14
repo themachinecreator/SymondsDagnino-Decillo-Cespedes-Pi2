@@ -1,27 +1,34 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native';
-import {db, auth} from "../../Firebase/Config";
+import {auth} from "../../Firebase/Config";
 
 function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [login, setLogin] = useState(false);
-  const [loginerror, setLoginError] = useState("");
+  const [loginError, setLoginError] = useState("");
+
   function onSubmit(email,password){
+
      auth.signInWithEmailAndPassword(email,password)
+
      .then(response =>{
        setLogin(true)
        navigation.navigate('HomeMenu')
      })
      .catch(error => {setLoginError("credenciales invalidas.")})
     }
-    useEffect(()=>{auth.onAuthStateChanged(
-      user => { 
+
+    useEffect(() => {
+
+     auth.onAuthStateChanged
+      (user => {
         if(user){
-          Props.navigation.navigate("HomeMenu")
+          navigation.navigate("HomeMenu")
         }
-      }
-    )})
+      })
+
+    }, []);
 
 
   return (

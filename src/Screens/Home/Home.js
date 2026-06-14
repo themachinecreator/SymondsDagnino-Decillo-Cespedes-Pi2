@@ -66,16 +66,16 @@ function disLike(idPost) {
                   <Text style={styles.textocard}>{item.data.descripcion}</Text>
                   <Text>Likes: {item.data.likes.length}</Text>
 
-                  <Pressable onPress={() => darLike(item.id)}>
-                     <Text>Me gusta</Text>
+                  <Pressable onPress={() => darLike(item.id)} style={styles.accion}>
+                     <Text style={styles.accionTexto}>Me gusta</Text>
                   </Pressable>
 
-                  <Pressable onPress={() => disLike(item.id)}>
-                     <Text>No me gusta</Text>
+                  <Pressable onPress={() => disLike(item.id)} style={styles.accion}>
+                     <Text style={styles.accionTexto}>No me gusta</Text>
                   </Pressable>
 
-                  <Pressable onPress={() => props.navigation.navigate('Comentarios', { id: item.id })}>
-                      <Text>Comentar</Text>
+                  <Pressable onPress={() => navigation.navigate('Comentarios', { id: item.id })}>
+                      <Text style={styles.comentar}>Comentar</Text>
                   </Pressable>
 
                 </View>
@@ -90,10 +90,9 @@ function disLike(idPost) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#f5f5f5',
-    padding: 24,
+    paddingTop: 56,
+    padding: 16,
   },
   text: {
     fontSize: 20,
@@ -128,5 +127,20 @@ const styles = StyleSheet.create({
   textocard: {
     color: '#444',
     fontSize: 14,
+  },
+
+  accion: {
+    marginTop: 6,
+  },
+  accionTexto: {
+    color: '#888',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  comentar: {
+    color: '#4A90E2',
+    fontWeight: '600',
+    fontSize: 13,
+    marginTop: 6,
   },
 });
