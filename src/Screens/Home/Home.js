@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, FlatList } from 'react-native';
 import { useState, useEffect } from 'react';
-import { db } from '../../Firebase/Config';
+import { db , auth } from '../../Firebase/Config';
+import firebase from "firebase";
 
 
 
@@ -29,6 +30,24 @@ useEffect(() => {
 }, []);
 
 
+function darLike(idPost) {
+    db.collection("posts")
+      .doc(idPost)
+      .update({
+          likes: firebase.firestore.FieldValue.arrayUnion(
+              auth.currentUser.email
+          )
+      })
+}
+
+function disLike(idPost) {
+        db.collection("posts")
+        .doc(idPost)
+        .update({
+            likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
+        })
+    }
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Pantalla de inicio</Text>
@@ -43,6 +62,16 @@ useEffect(() => {
               renderItem={({ item }) => (
                 <View style={styles.card}>
                   <Text style={styles.textocard}>{item.data.descripcion}</Text>
+                  <Text>Likes: {item.data.likes.length}</Text>
+
+                  <Pressable onPress={() => darLike(item.id)}>
+                     <Text>Me gusta</Text>
+                  </Pressable>
+
+                  <Pressable onPress={() => disLike(item.id)}>
+                     <Text>No me gusta</Text>
+                  </Pressable>
+
                 </View>
               )}
             />

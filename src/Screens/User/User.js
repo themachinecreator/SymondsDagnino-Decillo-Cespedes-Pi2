@@ -50,6 +50,7 @@ function User({ navigation }) {
         renderItem={({ item }) => (
           <View style={styles.card}>
             <Text style={styles.textocard}>{item.data.descripcion}</Text>
+            <Text>Likes: {item.data.likes.length}</Text>
           </View>
         )}
       />
