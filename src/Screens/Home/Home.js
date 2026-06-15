@@ -49,41 +49,36 @@ function disLike(idPost) {
 }
 
 
-
-  return (
+return (
     <View style={styles.container}>
       <Text style={styles.text}>Pantalla de inicio</Text>
+      <Text style={styles.buttonText}>Ir a Nuevo Post</Text>
 
-  
-        <Text style={styles.buttonText}>Ir a Nuevo Post</Text>
+      <Text style={styles.subtitulo}>Posteos</Text>
+      <FlatList
+        data={posteos}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.tarjeta}>
+            <Text style={styles.emailtexto}>{item.data.owner}</Text>
+            <Text style={styles.descripcionTexto}>{item.data.descripcion}</Text>
+            <Text style={styles.likesTexto}>Likes: {item.data.likes.length}</Text>
 
-      <Text style={styles.posteos}>Posteos</Text>
-            <FlatList
-              data={posteos}
-              keyExtractor={item => item.id}
-              renderItem={({ item }) => (
-                <View style={styles.card}>
-                  <Text style={styles.textocard}>{item.data.descripcion}</Text>
-                  <Text>Likes: {item.data.likes.length}</Text>
+            <Pressable onPress={() => darLike(item.id)} style={styles.botonAccion}>
+              <Text style={styles.accionTexto}>Me gusta</Text>
+            </Pressable>
 
-                  <Pressable onPress={() => darLike(item.id)} style={styles.accion}>
-                     <Text style={styles.accionTexto}>Me gusta</Text>
-                  </Pressable>
+            <Pressable onPress={() => disLike(item.id)} style={styles.botonAccion}>
+              <Text style={styles.accionTexto}>No me gusta</Text>
+            </Pressable>
 
-                  <Pressable onPress={() => disLike(item.id)} style={styles.accion}>
-                     <Text style={styles.accionTexto}>No me gusta</Text>
-                  </Pressable>
-
-                  <Pressable onPress={() => navigation.navigate('Comentarios', { id: item.id })}>
-                      <Text style={styles.comentar}>Comentar</Text>
-                  </Pressable>
-
-                </View>
-              )}
-            />
+            <Pressable onPress={() => navigation.navigate('Comentarios', { id: item.id })}>
+              <Text style={styles.comentarTexto}>Comentar</Text>
+            </Pressable>
+          </View>
+        )}
+      />
     </View>
-    
-    
   );
 }
 
@@ -110,26 +105,37 @@ const styles = StyleSheet.create({
     color: '#F0EEFF',
     fontWeight: '700',
   },
-    posteos: {
+  subtitulo: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
     marginTop: 24,
     marginBottom: 12,
   },
-  card: {
+  tarjeta: {
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 14,
     marginBottom: 10,
     elevation: 2,
   },
-  textocard: {
+  emailtexto: {
+    fontSize: 13,
+    fontWeight: 'bold',
+    color: '#4A90E2',
+    marginBottom: 6,
+  },
+  descripcionTexto: {
     color: '#444',
     fontSize: 14,
+    marginBottom: 6,
   },
-
-  accion: {
+  likesTexto: {
+    color: '#888',
+    fontSize: 13,
+    marginBottom: 6,
+  },
+  botonAccion: {
     marginTop: 6,
   },
   accionTexto: {
@@ -137,7 +143,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 13,
   },
-  comentar: {
+  comentarTexto: {
     color: '#4A90E2',
     fontWeight: '600',
     fontSize: 13,

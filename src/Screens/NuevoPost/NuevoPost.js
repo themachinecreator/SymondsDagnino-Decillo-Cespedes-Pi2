@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 8,
   },
-  buttonText: {
+  textoSubmit: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',

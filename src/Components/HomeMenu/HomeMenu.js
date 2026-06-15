@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome } from '@expo/vector-icons';
 import Home from '../../Screens/Home/Home';
 import User from '../../Screens/User/User';
-import NuevoPost from '../../Screens/NuevoPost/NuevoPost';
+import NuevoPost from '../../Screens/Nuevopost/NuevoPost';
 import ComentarioStack from '../ComentarioStack/ComentarioStack';
 
 const Tab = createBottomTabNavigator();
