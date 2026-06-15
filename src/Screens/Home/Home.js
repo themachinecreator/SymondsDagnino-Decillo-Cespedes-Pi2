@@ -52,7 +52,7 @@ function disLike(idPost) {
 return (
     <View style={styles.container}>
       <Text style={styles.text}>Pantalla de inicio</Text>
-      <Text style={styles.buttonText}>Ir a Nuevo Post</Text>
+    
 
       <Text style={styles.subtitulo}>Posteos</Text>
       <FlatList

@@ -15,7 +15,6 @@ function NuevoPost({navigation}) {
     })
 
         .then(() => {
-            console.log("Post creado");
             navigation.navigate("Home");
         })
         .catch((error) => console.error("Error al crear el post"));

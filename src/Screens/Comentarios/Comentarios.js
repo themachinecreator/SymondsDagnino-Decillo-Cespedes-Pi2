@@ -5,7 +5,7 @@ import firebase from 'firebase';
 
 
 function Comentarios(props) {
-  const id = props.route.params.id;
+  const {id} = props.route.params;
   const [comentario, setComentario] = useState("");
   const [comentarios, setComentarios] = useState([]);
 
@@ -51,7 +51,7 @@ function Comentarios(props) {
 
       <FlatList
         data={comentarios}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={item => item.comentario}
         renderItem={({ item }) => (
           <View style={styles.card}>
             <Text style={styles.accionTexto}>{item.owner}</Text>
